@@ -32,7 +32,7 @@ def main():
             for i in range(0, len(attackArguments)):
                 if opt in ('-a', '--attack'):
                     objList[i] = attack.getAttackObj(attackArguments[i])
-                else: groups = true
+                else: groups = True
         elif opt in ('-e', '--exclusions'):
             exclusionList = re.split(',', args)
         elif opt in ('-t', '--time'):
