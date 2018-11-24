@@ -1,18 +1,17 @@
 import getopt, sys, re
 
 def main():
-    attackArguments = []
-    objList = []
-    time = ''
-    memory = ''
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:", ["help", "list", "update", "attacks", "group", "exclude", "time", "memory"])
     except getopt.GetoptError as err:
         # print help information and exit
         usage()
         sys.exit(2)
-    output = None
-    verbose = False
+    attackArguments = []
+    objList = []
+    time = ''
+    memory = ''
+    exclusionList = []
     for opts, args in opts:
         if opt in ('-h', '--help'):
             usage()
