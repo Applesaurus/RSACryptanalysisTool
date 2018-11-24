@@ -25,14 +25,11 @@ def main():
         elif opt in ('-u', '--update'):
             #call update
         elif opt in ('-a', '--attack', '-g', '-group'): 
-            arguments = re.split(',',args) #multiple arguments for the same opt should be comma seperated; split them into an array
-            elif opt in ("-e", "--exclusions"):
-               attackArguments = re.split(',',args)
+            attackArguments = re.split(',',args) #multiple arguments for the same opt should be comma seperated; split them into an array
             for i in range (0 len(attackArguments):
                    if opt in ('-a', '--attack'):
                        objList[i] = attack.getAttackObj(attackArguments[i])
-                   else:
-                       objList[i] = group.getGroupObj(attackArguments[i])
+                   else: groups = true
         elif opt in ('-e', '--exclusions'):
             exclusionList = re.split(',',args)
         elif opt in ('-t', '--time'):
@@ -42,7 +39,9 @@ def main():
         else:
             usage()
             sys.exit(2)
-
+     
+    if groups:
+        objList = Attack.listFromGroups(attackArguments, exclusionList)
     if objList:                   
         #if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
         attackrunner(objList,time,memory,exclusions)
