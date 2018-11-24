@@ -12,7 +12,7 @@ class Update:
        identifier = {}
        for module in moduleList:
            try:
-               idenfitier = module.identify()
+               identifier = module.identify()
                with open('attackData.txt', 'w') as file:
                    json.dump(identifier, file)
            except:
