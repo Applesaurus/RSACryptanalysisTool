@@ -12,7 +12,7 @@ def main():
     time = ''
     memory = ''
     exclusionList = []
-    for opts, args in opts:
+    for opt, args in opts:
         if opt in ('-h', '--help'):
             usage()
             sys.exit()
