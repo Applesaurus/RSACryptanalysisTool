@@ -1,6 +1,7 @@
 from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import *
+from tkinter import filedialog
 
 """
 A class for the creation and running of the Main GUI Window and its functions.
@@ -93,11 +94,16 @@ class MainWindow:
         var = "This is just a test change this later"
 
     """
-    TODO Document this method
+    Creates a folder select window to allow the user to select
+    a new folder to serve as the attack directory.
     """
     def changeDirectory(self):
         #TODO make this do stuff
-        var = 0
+        folderSelected = filedialog.askdirectory()
+        bashString = "RSATool.py -s " + folderSelected
+
+        #TODO figure out the exact wording of the bash command above
+        #and add the code to call the main program
 
 
     """
@@ -115,6 +121,7 @@ class MainWindow:
     def displayAbout(self):
         #TODO make this do stuff
         var = 0
+
 
     """
     A simple wrapper method to allow the program to close without
