@@ -46,7 +46,7 @@ class MainWindow:
 
         #Add checkboxes for groups of attacks as well as attacks in attack frame
         self.group1Check = ttk.Checkbutton(attackFrame, text = "Group 1",variable=self.isCheckedGroup1)
-        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup1)
+        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup2)
         self.attack1 = ttk.Checkbutton(attackFrame, text = "attack 1", variable=self.isCheckedAttack1)
         self.attack2 = ttk.Checkbutton(attackFrame, text = "attack 2",variable=self.isCheckedAttack2)
 
