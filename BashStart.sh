@@ -1,8 +1,8 @@
 #!/bin/bash
 
-pyCryptControl="/CryptControl.py"
+pyCryptControl="/cryptcontrol.py"
 
 dirPath="$( cd "$( dirname "{BASH_SOURCE[0]}" )" && pwd )"
-dirPath=$dirPath$pyCryptControl
+dirPath=$dirPath$pycryptcontrol
 
 python3 "$dirPath" "$@"
