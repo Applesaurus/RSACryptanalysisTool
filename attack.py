@@ -1,6 +1,6 @@
 import json
 
-class Attack:
+class attack:
     attackName = ""
     groupName = ""
     whichArgs = [False, False, False, False]
@@ -31,5 +31,5 @@ class Attack:
         for excludedAttack in exclusions:
             if attack == excludedAttack:
                 return attackList
-        attackList.append(Attack(attack));
+        attackList.append(attack(attack));
         return attackList
