@@ -1,0 +1,24 @@
+import datetime
+class runner:
+   attackList = list((attack("","")))
+   timeLimit = 48
+   memoryLimit = -1                     ## default value is sentinel
+   targetMessage = ""
+
+   def __init__(attack, time, mem, group, exclude):
+      if(group == false):
+         useGroups = false
+      else:
+         useGroups = true
+         self.groupList = group.copy()
+         self.exclusionList = exclude.copy()
+      self.attackList = attack.copy()
+      self.timeLimit = time
+      self.memoryLimit = mem
+
+   def main():
+      timeStart = datetime.datetime.now()
+      timeEnd = timeStart + datetime.time(timeLimit, 0, 0, 0)
+      while datetime.datetime.now() < timeEnd:
+         for attack in attackList:
+            #attack.run?  Do attack files have a main method?  How does this work?
