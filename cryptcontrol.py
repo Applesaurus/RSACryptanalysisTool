@@ -1,4 +1,4 @@
-import getopt, sys, re
+import getopt, sys, re, attack, attackrunner
 
 
 def main():
@@ -31,7 +31,7 @@ def main():
             attackArguments = re.split(',',args)  # multiple arguments for the same opt should be comma seperated; split them into an array
             for i in range(0, len(attackArguments)):
                 if opt in ('-a', '--attack'):
-                    objList[i] = attack.getAttackObj(attackArguments[i])
+                    objList[i] = attack(attackArguments[i])
                 else: groups = True
         elif opt in ('-e', '--exclusions'):
             exclusionList = re.split(',', args)
@@ -44,8 +44,12 @@ def main():
             sys.exit(2)
 
         if groups:
-                objList = Attack.listFromGroups(attackArguments, exclusionList)
+                objList = attack.list_from_groups(attackArguments, exclusionList)
         if objList:
             # if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
-                attackrunner(objList, time, memory, exclusions)
+                attackrunner(objList, time, memory, exclusionList)
 
+
+
+def usage():
+    print('help goes here')
