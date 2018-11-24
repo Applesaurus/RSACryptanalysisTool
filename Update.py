@@ -9,7 +9,7 @@ class Update:
     def __init__(self, directory):
         self.attackdir = directory
 
-    def loadModules(dirname):
+    def loadModules(self, dirname):
         moduleList = []
         for importer, package_name in pkgutil.iter_modules([dirname]):
             full_package_name = '%s.%s' % (dirname, package_name)
@@ -19,7 +19,7 @@ class Update:
         return moduleList
 
     def runUpdate(self):
-        moduleList = self.loadModules(attackdir)
+        moduleList = self.loadModules(self.attackdir)
         identifier = {}
         for module in moduleList:
             try:
