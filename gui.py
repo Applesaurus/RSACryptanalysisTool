@@ -2,6 +2,8 @@ from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
+from tkinter import messagebox
+
 
 """
 A class for the creation and running of the Main GUI Window and its functions.
@@ -10,7 +12,7 @@ class MainWindow:
 
     """
     A method that, upon creation of a MainWindow object, creates all the buttons, labels,
-    and checkButtons for the GUI to function
+    and checkButtons necessary for the GUI to function
     """
     def __init__(self, master):
         #Set title on title bar
@@ -46,20 +48,20 @@ class MainWindow:
         self.isCheckedTime = IntVar()
 
         #Add checkboxes for groups of attacks as well as attacks in attack frame
-        self.group1Check = ttk.Checkbutton(attackFrame, text = "Group 1",variable=self.isCheckedGroup1)
-        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup2)
-        self.attack1 = ttk.Checkbutton(attackFrame, text = "attack 1", variable=self.isCheckedAttack1)
-        self.attack2 = ttk.Checkbutton(attackFrame, text = "attack 2",variable=self.isCheckedAttack2)
+        self.group1Check = ttk.Checkbutton(attackFrame, text = "Group 1",variable=self.isCheckedGroup1, command = self.checkBoxHandling)
+        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup2, command = self.checkBoxHandling)
+        self.attack1Check = ttk.Checkbutton(attackFrame, text ="attack 1", variable=self.isCheckedAttack1, command = self.checkBoxHandling)
+        self.attack2Check = ttk.Checkbutton(attackFrame, text ="attack 2", variable=self.isCheckedAttack2, command = self.checkBoxHandling)
 
-        #Add title label to bar across the top
+        #Add large font title label
         self.titleLabel = ttk.Label( attackFrame, text ="RSA Cryptanalysis Tool", font=24)
 
         #Position title label and checkboxes in attackFrame
-        self.titleLabel.grid(row=0)
+        self.titleLabel.grid(row=0, pady=(0,20))
         self.group1Check.grid(row=1,sticky=W, padx=10)
-        self.attack1.grid(row=2, padx=20,sticky=W)
+        self.attack1Check.grid(row=2, padx=20, sticky=W)
         self.group2Check.grid(row=3, sticky=W, padx=10)
-        self.attack2.grid(row=4, padx=20, sticky=W)
+        self.attack2Check.grid(row=4, padx=20, sticky=W)
 
         #Create frame to place constraint widgets on
         constraintFrame = Frame(master)
@@ -107,20 +109,40 @@ class MainWindow:
 
 
     """
-    TODO Document this method
+    Creates a messagebox displaying information about how to
+    use this program. I.e. how to access the different capabilities
+    like running attacks with constraints as well as the more
+    miscellaneous capabilities such as changing the attack directory.
     """
     def displayHelp(self):
-        #TODO make this do stuff
-        var = 0
+        helpString = "In order to run a number of attacks click the checkbox next " \
+                     "to each attack you would like to run and then hit the \"Run\" " \
+                     "button. You can run any number of attacks in this way.\n\n" \
+                     "Similarly you may run a group of attacks by clicking the checkbox next " \
+                     "to the group of attacks you wish to run. Note that you may exclude certain " \
+                     "attacks from being run with the group by unchecking the undesired attacks. \n\n" \
+                     "You may change the attack directory through the \"Edit\" menu.\n\n" \
+                     "You may specify time or memory constraints by clicking the relevant checkbox " \
+                     "and entering in the value along with units (s/m/h) or (MB\GB\MiB\GiB)."
+        messagebox.showinfo("Help", helpString)
 
 
 
     """
-    TODO Document this method
+    Creates a messagebox displaying information about the program.
+    I.e. what it is, what it does, what it is supposed to be used for.
     """
     def displayAbout(self):
-        #TODO make this do stuff
-        var = 0
+        aboutString = "This program is designed for the cryptanalysis of RSA public key encryption. " \
+                      "It includes several attacks by default and is open to expansion by allowing " \
+                      "users to import their own attacks. This program is intended for use by anyone " \
+                      "attempting to implement RSA in their own project. It is our hope that this tool " \
+                      "will help weed out some of the especially bad RSA implementations out there and " \
+                      "in the end make the web safer for everyone to use.\n\nThis GUI is included for the convenience " \
+                      "of those who are not familiar with a more traditional command line interface. " \
+                      "In fact, this GUI is just a hollow shell that generates the necessary Bash commands"  \
+                      "to run the command line program with the proper command line arguments."
+        messagebox.showinfo("About this program", aboutString)
 
 
     """
@@ -131,8 +153,18 @@ class MainWindow:
         sys.exit()
 
 
+    """
+    This function handles the behaviour of the checkbuttons
+    auto selecting and deselecting attacks when their group is clicked
+    """
+    def checkBoxHandling(self):
+        var = 1
+        #TODO probably just hardcode this when we get all our attacks
+
+
 ####### Begin main program #######
+
 root = Tk()
-m = MainWindow(root)
-root.resizable(False, False )
+mainWindow = MainWindow(root)
+root.resizable(False, False)
 root.mainloop()
