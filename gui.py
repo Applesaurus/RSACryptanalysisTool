@@ -2,9 +2,15 @@ from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import *
 
-
+"""
+Defines a class for the creation and running of the Main GUI Window.
+"""
 class MainWindow:
 
+    """
+    A method that, upon creation of a MainWindow object, creates all the buttons, labels,
+    and checkButtons for the GUI to function
+    """
     def __init__(self, master):
         #Set title on titlebar
         master.title("RSA Cryptanalysis Tool")
@@ -48,7 +54,7 @@ class MainWindow:
         self.timeChkButton = ttk.Checkbutton(constraintFrame, text = "Amount of time per attack:")
         self.timeChkButton.grid(row = 1, column=0, sticky=W)
         self.timeTxtBox = ttk.Entry(constraintFrame)
-        self.timeTxtBox.grid(row = 1, column=2)
+        self.timeTxtBox.grid(row=1, column=2)
 
 
         #Create run button for running selected attacks
@@ -59,10 +65,13 @@ class MainWindow:
         constraintFrame.grid(row = 0, column =1)
         self.runButton.grid(row=1, column=1, sticky=NSEW, columnspan=2)
 
+
+    """
+    Generates and runs a bash command based on the current GUI state
+    """
     def run_attacks(self):
         #TODO make this function actually do things
         var = "This is just a test change this later"
-
 
 
 ####### Begin main program #######
