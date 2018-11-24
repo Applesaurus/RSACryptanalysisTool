@@ -4,7 +4,7 @@ import getopt, sys, re, attack, update
 def main():
     try:  # make sure that no nonexistent options are specified
         opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:",
-                                   ["help", "list", "update", "attacks", "group", "exclude", "time", "memory"])
+                                   ["help", "list", "update", "attacks=", "group=", "exclude=", "time=", "memory="])
     except getopt.GetoptError as err:
         # if nonexistent options specified, print help information and exit
         usage()
@@ -19,15 +19,15 @@ def main():
         if opt in ('-h', '--help'):
             usage()
             sys.exit()
-        #elif opt in ('-l', '--list'):
-            # call update
-        #    if args:
-                # listthings(args)
-        #    else:
-                #listthings()
-        #elif opt in ('-u', '--update'):
-        # call update
-        elif opt in ('-a', '--attack', '-g', '-group'):
+        elif opt in ('-l', '--list'):
+             update.runUpdate()
+             if args:
+                update.list(args)
+             else:
+                update.list()
+        elif opt in ('-u', '--update'):
+             update.runUpdate()
+        elif opt in ('-a', '--attack', '-g', '--group'):
             attackArguments = re.split(',',args)  # multiple arguments for the same opt should be comma seperated; split them into an array
             for i in range(0, len(attackArguments)):
                 if opt in ('-a', '--attack'):
