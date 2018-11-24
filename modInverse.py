@@ -14,9 +14,9 @@
 ## @input firstInt, secondInt
 ## @output remainder, coeff
 def inversionGCD(firstInt, secondInt):
-    if abs(firstInt) == abs(secondInt):
+    if abs(firstInt) == abs(secondInt):    # Special case: the input values are equal, or differ by a sign
         return [0], [firstInt//secondInt]
-    if firstInt * secondInt == 0:
+    if firstInt * secondInt == 0:    # Special case: one of the inputs is zero
         return [0], [0]
     divisor = firstInt
     quotient = secondInt
@@ -28,16 +28,20 @@ def inversionGCD(firstInt, secondInt):
     divisor = quotient
     quotient = testValue
 
+    # Euclid's algorithm: Given divisor and quotient, find coeff and remainder such that
+    # divisor = coeff * quotient + remainder
+    # As long as remainder is not zero, repeat,
+    # using values divisor = quotient and quotient = remainder
     while testValue != 0:
         testValue = divisor%quotient
         remainder.append(testValue)
         coeff.append(divisor//quotient)
         divisor = quotient
         quotient = testValue
+    
+    return remainder, coeff
 
 #    firstInv, secondInv = modInverter(remainder, coeff)
-#    return u%max(firstInt, secondInt), v%min(firstInt, secondInt)
-    return remainder, coeff
 #    return firstInv%secondInt, secondInv%firstInt
 
 ## modInverter uses the arrays from inversionGCD
@@ -50,8 +54,8 @@ def inversionGCD(firstInt, secondInt):
 ## @input remainder, coeff
 ## @output divCoeffNew, quotCoeffNew
 def modInverter(remainder, coeff):
-    if(remainder[0] == 0):
-        return 0, 1
+    if(remainder[0] == 0):    # Special case: one of the inputs from inversionGCD is a multiple of the other
+        return 0, -coeff[0]
 
     else:
 
@@ -62,7 +66,7 @@ def modInverter(remainder, coeff):
 
         counter = 1
 
-        while remainder[counter+1] != 0:
+        while remainder[counter+1] != 0:    # The remainder immediately preceding 0 is the gcd
             counter += 1
             temp = divCoeffOld - coeff[counter] * divCoeffNew
             divCoeffOld = divCoeffNew
