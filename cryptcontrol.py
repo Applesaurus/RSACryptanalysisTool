@@ -1,4 +1,4 @@
-import getopt, sys, re, attack, attackrunner
+import getopt, sys, re, attack, update
 
 
 def main():
@@ -14,18 +14,18 @@ def main():
     time = ''
     memory = ''
     exclusionList = []
+    groups = False
     for opt, args in opts:
         if opt in ('-h', '--help'):
             usage()
             sys.exit()
-        elif opt in ('-l', '--list'):
+        #elif opt in ('-l', '--list'):
             # call update
-            if args:
+        #    if args:
                 # listthings(args)
-            else:
+        #    else:
                 #listthings()
-        # listthings
-        elif opt in ('-u', '--update'):
+        #elif opt in ('-u', '--update'):
         # call update
         elif opt in ('-a', '--attack', '-g', '-group'):
             attackArguments = re.split(',',args)  # multiple arguments for the same opt should be comma seperated; split them into an array
@@ -43,13 +43,16 @@ def main():
             usage()
             sys.exit(2)
 
-        if groups:
-                objList = attack.list_from_groups(attackArguments, exclusionList)
-        if objList:
-            # if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
-                attackrunner(objList, time, memory, exclusionList)
+    if groups:
+        objList = attack.list_from_groups(attackArguments, exclusionList)
+    #if objList:
+        # if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
+        #attackrunner(objList, time, memory, exclusionList)
 
 
 
 def usage():
     print('help goes here')
+
+if __name__ == "__main__":
+    main()
