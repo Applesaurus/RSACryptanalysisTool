@@ -27,9 +27,9 @@ class attack:
                         attackList = self.append_attack(attackList, i, exclusions)
         return attackList
 
-    def append_attack(attackList, newAttack, exclusions):
+    def append_attack(attackList, attack, exclusions):
         for excludedAttack in exclusions:
             if attack == excludedAttack:
                 return attackList
-        attackList.append(attack(newAttack));
+        attackList.append(attack(attack));
         return attackList
