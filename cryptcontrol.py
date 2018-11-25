@@ -1,7 +1,12 @@
-import getopt, sys, re, attack, Update
+import getopt, sys, re, attack
+from update import update
+from attackRunner import attackRunner
 
 
 def main():
+    attackDir = "/Users/jackie/Desktop/pythontest"
+    updater = update(attackDir)
+    runattack = attackRunner(attackDir)
     try:  # make sure that no nonexistent options are specified
         opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:p:",
                                    ["help", "list", "update", "attacks=", "group=", "exclude=", "time=", "memory=", "parameters="])
@@ -20,18 +25,19 @@ def main():
             usage()
             sys.exit()
         elif opt in ('-l', '--list'):
-             Update.runUpdate()
+             updater.runUpdate()
              if args:
-                 Update.list(args)
+                updater.list(args)
              else:
-                 Update.list()
+                updater.list()
         elif opt in ('-u', '--update'):
-            Update.runUpdate()
+             updater.runUpdate()
         elif opt in ('-a', '--attack', '-g', '--group'):
             attackArguments = re.split(',',args)  # multiple arguments for the same opt should be comma seperated; split them into an array
+            print(attackArguments)
             for i in range(0, len(attackArguments)):
                 if opt in ('-a', '--attack'):
-                    objList[i] = attack(attackArguments[i])
+                    objList.append(attack.attack(attackArguments[i]))
                 else: groups = True
         elif opt in ('-e', '--exclusions'):
             exclusionList = re.split(',', args)
@@ -40,7 +46,7 @@ def main():
         elif opt in ('-m', '--memory'):
             memory = args
         elif opt in ('-p', '--parameters'):
-            if re.match('.txt', args):
+            #if re.match('.txt', args):
                 #read json
             parameters = re.split(',', args)
         else:
@@ -51,7 +57,7 @@ def main():
         objList = attack.list_from_groups(attackArguments, exclusionList)
     if objList:
         # if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
-        attackRunner(objList, time, memory, parameters)
+        runattack.start(objList, time, memory, parameters)
 
 
 
