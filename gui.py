@@ -12,7 +12,7 @@ class MainWindow:
 
     """
     A method that, upon creation of a MainWindow object, creates all the buttons, labels,
-    and checkButtons necessary for the GUI to function
+    dropdown menus, and checkButtons necessary for the GUI to function
     """
     def __init__(self, master):
         #Set title on title bar
@@ -29,6 +29,7 @@ class MainWindow:
         menubar.add_cascade(label="Edit",menu = editMenu)
         menubar.add_cascade(label="Help", menu = helpMenu)
         fileMenu.add_command(label="Exit", command = self.closeWindow)
+        editMenu.add_command(label="Add Attack", command = self.addAttack)
         editMenu.add_command(label="Change Attack Directory", command = self.changeDirectory)
         helpMenu.add_command(label="About", command = self.displayAbout)
         helpMenu.add_command(label="Help", command = self.displayHelp)
@@ -78,7 +79,6 @@ class MainWindow:
         self.timeTxtBox = ttk.Entry(constraintFrame)
         self.timeTxtBox.grid(row=1, column=2)
 
-
         #Create run button for running selected attacks
         self.runButton = ttk.Button(master, text="Run", command = self.runAttacks)
 
@@ -95,12 +95,12 @@ class MainWindow:
         #TODO make this function actually do things
         var = "This is just a test change this later"
 
+
     """
     Creates a folder select window to allow the user to select
     a new folder to serve as the attack directory.
     """
     def changeDirectory(self):
-        #TODO make this do stuff
         folderSelected = filedialog.askdirectory()
         bashString = "RSATool.py -s " + folderSelected
 
@@ -125,7 +125,6 @@ class MainWindow:
                      "You may specify time or memory constraints by clicking the relevant checkbox " \
                      "and entering in the value along with units (s/m/h) or (MB\GB\MiB\GiB)."
         messagebox.showinfo("Help", helpString)
-
 
 
     """
@@ -162,9 +161,19 @@ class MainWindow:
         #TODO probably just hardcode this when we get all our attacks
 
 
+    """
+    A method that creates a file select pop up window to allow
+    the user to add a new file to the list of available attacks
+    """
+    def addAttack(self):
+        fileSelected = filedialog.askopenfile()
+        bashString = "RSATool.py "
+        #TODO make the above actually do something
+
+
 ####### Begin main program #######
 
 root = Tk()
-mainWindow = MainWindow(root)
+GUI = MainWindow(root)
 root.resizable(False, False)
 root.mainloop()
