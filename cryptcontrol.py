@@ -1,4 +1,4 @@
-import getopt, sys, re, attack, update
+import getopt, sys, re, attack, Update
 
 
 def main():
@@ -20,13 +20,13 @@ def main():
             usage()
             sys.exit()
         elif opt in ('-l', '--list'):
-             update.runUpdate()
+             Update.runUpdate()
              if args:
-                update.list(args)
+                 Update.list(args)
              else:
-                update.list()
+                 Update.list()
         elif opt in ('-u', '--update'):
-             update.runUpdate()
+            Update.runUpdate()
         elif opt in ('-a', '--attack', '-g', '--group'):
             attackArguments = re.split(',',args)  # multiple arguments for the same opt should be comma seperated; split them into an array
             for i in range(0, len(attackArguments)):
@@ -51,7 +51,7 @@ def main():
         objList = attack.list_from_groups(attackArguments, exclusionList)
     if objList:
         # if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
-        attackrunner(objList, time, memory, parameters)
+        attackRunner(objList, time, memory, parameters)
 
 
 
