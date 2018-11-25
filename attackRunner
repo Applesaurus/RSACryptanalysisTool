@@ -1,12 +1,13 @@
-import datetime, time, threading
+import datetime, time, threading, pkgutil, sys
 
 class attackRunner:
+   attackDir = "/Users/jackie/Desktop/pythontest"
 
    def __init__(self):
 
    def start(self, attackList, timeLimit, memoryLimit, parameters):
       for i in range (0, len(attackList)):
-         module = self.loadModule(attackList[i].attackName)
+         module = self.loadAttack(attackList[i].attackName)
 
          attackThread = threading.Thread(module.launch(parameters)) #create thread for the attack
          memThread = threading.Thread(self.lauchMemCheck(memoryLimit, attackThread))
@@ -18,6 +19,11 @@ class attackRunner:
          time.sleep(timeEnd - timeStart)
          attackThread.stop()
 
-   def loadModule(self):
+   def loadAttack(self, dirname, package_name):
+       full_package_name = '%s.%s' % (self.attackDir, package_name)
+       if full_package_name not in sys.modules:
+           importer = pkgutil.get_loader(full_package_name)
+           module = importer.find_module(package_name).load_module(full_package_name)
+           
 
-   def launchMemCheck(self):
+   #def launchMemCheck(self):
