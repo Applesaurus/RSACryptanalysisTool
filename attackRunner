@@ -10,7 +10,7 @@ class attackRunner:
          module = self.loadAttack(attackList[i].attackName)
 
          attackProcess = multiprocessing.process(module.launch(parameters)) #create process for the attack
-         memThread = threading.Thread(self.lauchMemCheck(memoryLimit, attackThread))
+         memThread = threading.Thread(self.lauchMemCheck(memoryLimit, attackProcess))
          attackProcess.start() #start process
          memThread.start()
          timeStart = datetime.datetime.now()
