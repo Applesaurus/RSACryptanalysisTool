@@ -3,8 +3,8 @@ import getopt, sys, re, attack, update
 
 def main():
     try:  # make sure that no nonexistent options are specified
-        opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:",
-                                   ["help", "list", "update", "attacks=", "group=", "exclude=", "time=", "memory="])
+        opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:p:",
+                                   ["help", "list", "update", "attacks=", "group=", "exclude=", "time=", "memory=", "parameters="])
     except getopt.GetoptError as err:
         # if nonexistent options specified, print help information and exit
         usage()
@@ -39,15 +39,19 @@ def main():
             time = args
         elif opt in ('-m', '--memory'):
             memory = args
+        elif opt in ('-p', '--parameters'):
+            if re.match('.txt', args):
+                #read json
+            parameters = re.split(',', args)
         else:
             usage()
             sys.exit(2)
 
     if groups:
         objList = attack.list_from_groups(attackArguments, exclusionList)
-    #if objList:
+    if objList:
         # if objList is either a list of groups are a list of attacks, -a or -g must have been specified indicating that an attack should run
-        #attackrunner(objList, time, memory, exclusionList)
+        attackrunner(objList, time, memory, parameters)
 
 
 
