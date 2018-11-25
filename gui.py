@@ -1,6 +1,7 @@
 from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import *
+from ttkthemes import themed_tk as tk
 from tkinter import filedialog
 from tkinter import messagebox
 
@@ -49,10 +50,10 @@ class MainWindow:
         self.isCheckedTime = IntVar()
 
         #Add checkboxes for groups of attacks as well as attacks in attack frame
-        self.group1Check = ttk.Checkbutton(attackFrame, text = "Group 1",variable=self.isCheckedGroup1, command = self.checkBoxHandling)
-        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup2, command = self.checkBoxHandling)
-        self.attack1Check = ttk.Checkbutton(attackFrame, text ="attack 1", variable=self.isCheckedAttack1, command = self.checkBoxHandling)
-        self.attack2Check = ttk.Checkbutton(attackFrame, text ="attack 2", variable=self.isCheckedAttack2, command = self.checkBoxHandling)
+        self.group1Check = ttk.Checkbutton(attackFrame, text = "Group 1",variable=self.isCheckedGroup1, command = self.checkBoxHandling, takefocus=0)
+        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup2, command = self.checkBoxHandling, takefocus=0)
+        self.attack1Check = ttk.Checkbutton(attackFrame, text ="attack 1", variable=self.isCheckedAttack1, command = self.checkBoxHandling, takefocus=0)
+        self.attack2Check = ttk.Checkbutton(attackFrame, text ="attack 2", variable=self.isCheckedAttack2, command = self.checkBoxHandling, takefocus=0)
 
         #Add large font title label
         self.titleLabel = ttk.Label( attackFrame, text ="RSA Cryptanalysis Tool", font=24)
@@ -68,24 +69,29 @@ class MainWindow:
         constraintFrame = Frame(master)
 
         #Add checkbox, label, and entry field for memory constraint specification
-        self.memChkButton = ttk.Checkbutton(constraintFrame, text = "Amount of memory per attack:", variable= self.isCheckedMem)
+        self.memChkButton = ttk.Checkbutton(constraintFrame, text = "Amount of memory per attack:", variable= self.isCheckedMem, takefocus=0)
         self.memChkButton.grid(row = 0, column=0)
         self.memTxtBox = ttk.Entry(constraintFrame)
         self.memTxtBox.grid(row = 0, column=2)
 
         #Add checkbox, label, and entry field for time constraint specification
-        self.timeChkButton = ttk.Checkbutton(constraintFrame, text = "Amount of time per attack:", variable= self.isCheckedTime)
+        self.timeChkButton = ttk.Checkbutton(constraintFrame, text = "Amount of time per attack:", variable= self.isCheckedTime, takefocus=0)
         self.timeChkButton.grid(row = 1, column=0, sticky=W)
         self.timeTxtBox = ttk.Entry(constraintFrame)
         self.timeTxtBox.grid(row=1, column=2)
 
-        #Create run button for running selected attacks
-        self.runButton = ttk.Button(master, text="Run", command = self.runAttacks)
+        #Create run button for running selected attacks and pad out the text because the style left justifies and its
+        #easier to just pad this one string than change the entire style
+        self.runButton = ttk.Button(master, text="                             " \
+                                                 "Run Attack(s)", command = self.runAttacks, takefocus=0)
 
         #Add frames and run button to mainwindow
-        attackFrame.grid(column = 0)
+        bgFrame = Frame(root)
+        bgFrame.grid(columnspan=100, rowspan=100, sticky=NSEW)      #Add a blank frame at bottom of all widgets so that everything is a uniform color
+        bgFrame.lower()
+        attackFrame.grid(row=0, column = 0)
         constraintFrame.grid(row = 0, column =1)
-        self.runButton.grid(row=1, column=1, sticky=NSEW)
+        self.runButton.grid(row=1, column=1, sticky=EW)
 
 
     """
@@ -139,7 +145,7 @@ class MainWindow:
                       "will help weed out some of the especially bad RSA implementations out there and " \
                       "in the end make the web safer for everyone to use.\n\nThis GUI is included for the convenience " \
                       "of those who are not familiar with a more traditional command line interface. " \
-                      "In fact, this GUI is just a hollow shell that generates the necessary Bash commands"  \
+                      "In fact, this GUI is just a hollow shell that generates the necessary Bash commands "  \
                       "to run the command line program with the proper command line arguments."
         messagebox.showinfo("About this program", aboutString)
 
@@ -173,7 +179,9 @@ class MainWindow:
 
 ####### Begin main program #######
 
-root = Tk()
+root = tk.ThemedTk()
+root.get_themes()
+root.set_theme("black")
 GUI = MainWindow(root)
 root.resizable(False, False)
 root.mainloop()
