@@ -85,13 +85,13 @@ class MainWindow:
         self.runButton = ttk.Button(master, text="                             " \
                                                  "Run Attack(s)", command = self.runAttacks, takefocus=0)
 
-        #Add frames and run button to mainwindow
+        #Add frames and run button to mainWindow
         bgFrame = Frame(root)
         bgFrame.grid(columnspan=100, rowspan=100, sticky=NSEW)      #Add a blank frame at bottom of all widgets so that everything is a uniform color
         bgFrame.lower()
-        attackFrame.grid(row=0, column = 0)
-        constraintFrame.grid(row = 0, column =1)
-        self.runButton.grid(row=1, column=1, sticky=EW)
+        attackFrame.grid(row=0, column = 0, sticky=N)
+        constraintFrame.grid(row = 0, column =1, pady=(60,70))
+        self.runButton.grid(row=2, column=1, sticky=EW)
 
 
     """
