@@ -36,16 +36,16 @@ class attackRunner:
            # timeEnd = timeStart + datetime.timedelta(days=2)
            timetoWait = 172800
        if re.search('d', timeLimit):
-           re.sub('d', '', timeLimit)
+           timeLimit = re.sub('d', '', timeLimit)
            timetoWait = int(timeLimit) * 86400
        elif re.search('h', timeLimit):
-           re.sub('h', '', timeLimit)
+           timeLimit = re.sub('h', '', timeLimit)
            timetoWait = int(timeLimit) * 3600
        elif re.search('m', timeLimit):
-           re.sub('m', '', timeLimit)
+           timeLimit = re.sub('m', '', timeLimit)
            timetoWait = int(timeLimit) * 60
        elif re.search('s', timeLimit):
-           re.sub('s', '', timeLimit)
+           timeLimit = re.sub('s', '', timeLimit)
            timetoWait = int(timeLimit)
        time.sleep(timetoWait)
        currentProcess = psutil.Process(os.getpid())
