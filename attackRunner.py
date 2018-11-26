@@ -18,16 +18,24 @@ class attackRunner:
 
 
    def finalprep(self, parameters, module, memoryLimit=None, timeLimit=None):
+       # call launch() from the attack file to run the attack
        #spin off a new thread from the new process to monitor memory usage
        #spin off a new thread to kill the process when time limit is up
-       #call launch() from the attack file to run the attack
-       module.launch(parameters)
+       #end checking for time and memory usage if attack is finished (in progress)
+       attackThread = threading.Thread(module.launch(parameters))
        memThread = threading.Thread(self.memCheck(memoryLimit))
        timeThread = threading.Thread(self.timeCheck(timeLimit))
+       memThreadStop = threading.Event()
+       attackThread.start()
+       memThread.start()
+       timeThread.start()
+       #while True:
+       #    if not attackThread.isAlive():
+
 
 
    def memCheck(self, memoryLimit):
-       #shutdown current process when memory limit reached
+       #shutdown current process when memory limit reached (in progress)
        checkProc = psutil.Process(os.getpid()).memory_info()
 
    def timeCheck(self, timeLimit):
