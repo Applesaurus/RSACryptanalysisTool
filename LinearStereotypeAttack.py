@@ -134,3 +134,13 @@ def modInverter(remainder, coeff):
             quotCoeffNew = temp
 
         return divCoeffNew, quotCoeffNew
+
+def identify():
+    def identify():
+    identifier = {
+        'attack': 'LinearStereotypeAttack',
+        'group': 'Stereotyped Message Attacks',
+        'Args': [false, false, True, false],
+        'Sets': 2
+    }
+    return identifier
