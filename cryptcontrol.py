@@ -22,6 +22,7 @@ def main():
     groups = False
     for opt, args in opts:
         #handle all options and arguments
+        #iterate through opts and handle each option and argument accordingly
         if opt in ('-h', '--help'):
             usage()
             sys.exit()
@@ -33,7 +34,9 @@ def main():
                 else:
                      updater.list()
         elif opt in ('-a', '--attack', '-g', '--group'):
-            attackArguments = re.split(',',args)  # multiple arguments for the same opt should be comma seperated; split them into an array
+            #use the attack or group names to make a list of attack objects
+            #because groups must be checked for exclusions, the full list of attack objects if '-g' is assembled after all opts have been iterated through
+            attackArguments = re.split(',', args)  # multiple arguments for the same opt should be comma seperated; split them into an array
             print(attackArguments)
             for i in range(0, len(attackArguments)):
                 if opt in ('-a', '--attack'):
@@ -46,6 +49,7 @@ def main():
         elif opt in ('-m', '--memory'):
             memory = args
         elif opt in ('-p', '--parameters'):
+            #handle the parameters
             #if re.match('.txt', args):
                 #read json
             parameters = re.split(',', args)
