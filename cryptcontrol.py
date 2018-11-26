@@ -8,8 +8,8 @@ def main():
     updater = update(attackDir)
     runAttack = attackRunner(attackDir)
     try:  # make sure that no nonexistent options are specified
-        opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:p:",
-                                   ["help", "list", "update", "attacks=", "group=", "exclude=", "time=", "memory=", "parameters="])
+        opts, args = getopt.getopt(sys.argv[1:], "hlua:g:e:t:m:p:s:",
+                                   ["help", "list", "update", "attacks=", "group=", "exclude=", "time=", "memory=", "parameters=", "directory="])
     except getopt.GetoptError as err:
         # if nonexistent options specified, print help information and exit
         usage()
@@ -23,12 +23,12 @@ def main():
     for opt, args in opts:
         #handle all options and arguments
         #iterate through opts and handle each option and argument accordingly
-        if opt in ('-h', '--help'):
+        if opt in ('-h', '--help'): #print usage
             usage()
             sys.exit()
-        elif opt in ('-l', '--list', '-u', '--update'):
+        elif opt in ('-l', '--list', '-u', '--update'): #update the stored identifying information for all attack files in the attack directory
             updater.runUpdate()
-            if opt in ('-l', '--list'):
+            if opt in ('-l', '--list'): #list all valid attacks in the attack directory
                 if args:
                      updater.list(args)
                 else:
@@ -44,15 +44,19 @@ def main():
                 else: groups = True
         elif opt in ('-e', '--exclusions'):
             exclusionList = re.split(',', args)
-        elif opt in ('-t', '--time'):
+        elif opt in ('-t', '--time'): #specify max time for each attack to run
             time = args
-        elif opt in ('-m', '--memory'):
+        elif opt in ('-m', '--memory'): #specify max memory each attack allowed to use
             memory = args
-        elif opt in ('-p', '--parameters'):
+        elif opt in ('-p', '--parameters'): #specify parameters in order: publicexponent, modulus, cyphertext, plaintext
             #handle the parameters
             #if re.match('.txt', args):
                 #read json
             parameters = re.split(',', args)
+        elif opt in ('-s', '--directory'): #change attack directory
+            attackDir = args
+            updater = update(attackDir)
+            runAttack = attackRunner(attackDir)
         else:
             usage()
             sys.exit(2)
