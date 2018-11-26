@@ -4,6 +4,9 @@ from tkinter.ttk import *
 from ttkthemes import themed_tk as tk
 from tkinter import filedialog
 from tkinter import messagebox
+from cryptcontrol import *
+from attackRunner import *
+import subprocess
 
 
 """
@@ -50,10 +53,10 @@ class MainWindow:
         self.isCheckedTime = IntVar()
 
         #Add checkboxes for groups of attacks as well as attacks in attack frame
-        self.group1Check = ttk.Checkbutton(attackFrame, text = "Group 1",variable=self.isCheckedGroup1, command = self.checkBoxHandling, takefocus=0)
-        self.group2Check = ttk.Checkbutton(attackFrame, text = "Group 2",variable=self.isCheckedGroup2, command = self.checkBoxHandling, takefocus=0)
-        self.attack1Check = ttk.Checkbutton(attackFrame, text ="attack 1", variable=self.isCheckedAttack1, command = self.checkBoxHandling, takefocus=0)
-        self.attack2Check = ttk.Checkbutton(attackFrame, text ="attack 2", variable=self.isCheckedAttack2, command = self.checkBoxHandling, takefocus=0)
+        self.group1Check = ttk.Checkbutton(attackFrame, text = "Stereotyped Message Attacks",variable=self.isCheckedGroup1, takefocus=0)
+        self.group2Check = ttk.Checkbutton(attackFrame, text = "Common Plaintext Attacks",variable=self.isCheckedGroup2, takefocus=0)
+        self.attack1Check = ttk.Checkbutton(attackFrame, text ="attack 1", variable=self.isCheckedAttack1, takefocus=0)
+        self.attack2Check = ttk.Checkbutton(attackFrame, text ="attack 2", variable=self.isCheckedAttack2, takefocus=0)
 
         #Add large font title label
         self.titleLabel = ttk.Label( attackFrame, text ="RSA Cryptanalysis Tool", font=24)
@@ -98,8 +101,10 @@ class MainWindow:
     Generates and runs a bash command based on the current GUI state
     """
     def runAttacks(self):
-        #TODO make this function actually do things
-        var = "This is just a test change this later"
+        fileSelected = filedialog.askopenfile()
+        bashString = "Python cryptcontrol.py"
+        subprocess.run(bashString.Split())
+        #TODO figure out the right command line arguments to append to above
 
 
     """
@@ -108,10 +113,9 @@ class MainWindow:
     """
     def changeDirectory(self):
         folderSelected = filedialog.askdirectory()
-        bashString = "RSATool.py -s " + folderSelected
-
+        bashString = "Python cryptcontrol.py" + folderSelected
+        subprocess.run(bashString.Split())
         #TODO figure out the exact wording of the bash command above
-        #and add the code to call the main program
 
 
     """
@@ -159,22 +163,14 @@ class MainWindow:
 
 
     """
-    This function handles the behaviour of the checkbuttons
-    auto selecting and deselecting attacks when their group is clicked
-    """
-    def checkBoxHandling(self):
-        var = 1
-        #TODO probably just hardcode this when we get all our attacks
-
-
-    """
     A method that creates a file select pop up window to allow
     the user to add a new file to the list of available attacks
     """
     def addAttack(self):
         fileSelected = filedialog.askopenfile()
-        bashString = "RSATool.py "
-        #TODO make the above actually do something
+        bashString = "Python cryptcontrol.py"
+        subprocess.run(bashString.Split())
+        #TODO figure out the command line arguments for the above
 
 
 ####### Begin main program #######
