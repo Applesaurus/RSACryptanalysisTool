@@ -16,7 +16,7 @@ from math import gcd
 ## and the encryption can be completely cracked.
 ## @input cypherOne, cypherTwo
 
-def demo(cypherOne, cypherTwo):
+def launch(cypherOne, cypherTwo):
     testViable = input("Is there a known linear relationship between your plaintext messages? ")
     if(testViable[0] == 'y' or testViable[0] == 'Y'):
         linCoeff = int(input("Input linear coefficient: "))
