@@ -49,4 +49,4 @@ class attackRunner:
            timetoWait = int(timeLimit)
        time.sleep(timetoWait)
        currentProcess = psutil.Process(os.getpid())
-       currentProcess.shutdown()
+       currentProcess.terminate()
