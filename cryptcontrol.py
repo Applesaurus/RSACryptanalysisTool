@@ -2,6 +2,7 @@ import getopt, sys, re, attack
 from update import update
 from attackRunner import attackRunner
 
+##written by Jackie Bowers
 
 def main():
     attackDir = "/Users/jackie/Desktop/pythontest"
