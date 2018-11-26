@@ -3,8 +3,8 @@ import json, re
 class attack:
     attackName = ""
     groupName = ""
-    whichArgs = [False, False, False, False]
-    numSets = None
+    whichArgs = [False, False, False, False] #whichArgs specifies which of the arguments publicexponent, modulus, cyphertext, plaintext an attack takes
+    numSets = None #numSets specifies the minimum number of sets of arguments an attack takes
 
     def __init__(self, atkName):
         #generate attack object from json
@@ -30,6 +30,7 @@ class attack:
         return attackList
 
     def append_attack(attackList, attackName, exclusions):
+
         for excludedAttack in exclusions:
             if attackName == excludedAttack:
                 return attackList
