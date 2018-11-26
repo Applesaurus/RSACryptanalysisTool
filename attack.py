@@ -1,4 +1,4 @@
-import json
+import json, re
 
 class attack:
     attackName = ""
@@ -7,6 +7,7 @@ class attack:
     numSets = None
 
     def __init__(self, atkName):
+        #generate attack object from json
         self.attackName = atkName
         with open('AttackData.txt') as json_file:
             attackData = json.load(json_file)
@@ -18,6 +19,7 @@ class attack:
 
 
     def list_from_group(self, groups, exclusions):
+        #generate the list of attack objects when given a list of groups and a list of attacks to exlcude
         attackList = []
         with open('AttackData.txt') as json_file:
             attackData = json.load(json_file)
@@ -27,9 +29,9 @@ class attack:
                         attackList = self.append_attack(attackList, i, exclusions)
         return attackList
 
-    def append_attack(attackList, attack, exclusions):
+    def append_attack(attackList, attackName, exclusions):
         for excludedAttack in exclusions:
-            if attack == excludedAttack:
+            if attackName == excludedAttack:
                 return attackList
-        attackList.append(attack(attack));
+        attackList.append(attack(attackName));
         return attackList
